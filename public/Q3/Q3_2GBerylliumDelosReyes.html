@@ -21,15 +21,57 @@
     <section class="box">
         <h2>2nd Graded Exercise</h2>
         <form method="post" action="submit">
-            <p>StudentID: <input type="number"></p>
-            <p>Full Name: <input type="text"></p>
-            <p>Birthday: <input type="date"></p>
-            <p>Email Address: <input type="email"></p>
-            <p>Mobile Phone: <input type="text"></p>
-            <p>Grade Level: <input type="dropdown"></p>
-            <p>Intern?: <input type="radio"></p>
-            <p>Preferred Organization / Club: <input type="option"></p>
-            <p>Why do you want to join?: <input type="textarea"></p>
+
+            <label>StudentID:<br>
+              <input type="number" id="sID" name="sID"><br>
+              </label>
+            
+            <label>Full name:<br>
+             <input type="text" id="name" name="name"><br>
+              </label>
+
+            <label>Birthday:<br>
+              <input type="date" id="bday" name="bday"><br>
+             </label>
+            
+            <label>Email Address:<br>
+              <input type="email" id="email" name="email"><br>
+              </label>
+
+            <label>Mobile Phone:<br>
+            <input type="text" id="pnum" name="pnum"><br>
+            </label>
+
+            <label>Grade Level<br>
+            <select id="grade" name="grade">
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+            </label>
+        
+            
+            <br><label>Residency:<br>
+              <input type="radio" id="residency" name="Intern" value="Intern"/> Intern
+              <input type="radio" id="residency" name="Intern" value="Intern"/> Extern
+            </label>
+
+           <br><label>Preferred Organization / Club:<br>
+            <select id="grade" name="grade">
+              <option value="atom">Atom</option>
+              <option value="xyz">XYZ</option>
+              <option value="alianti">Alianti</option>
+              <option value="labuyo">Labuyo</option>
+              <option value="volant">Volant</option>
+              <option value="math">Math Club</option>
+            </select>
+            </label>
+
+            <br> <label>Why do you want to join?:</label>
+            <br> <textarea id="reason" name="reason" rows="4" cols="50"></textarea><br> 
             <button>Sign Up</button>
         </form>
     </section>
