@@ -6,7 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
   <style>
-        
+    input:focus, textarea:focus {
+      outline: 2px solid orange;
+      outline-offset: 4px;
+    }
+
     </style>
 </head>
 
@@ -20,59 +24,72 @@
     
     <section class="box">
         <h2>2nd Graded Exercise</h2>
-        <form method="post" action="submit">
+        <form method="post" action="submit"
+              onsubmit="return confirm('Have you reviewed the form before submitting?')"
+              onreset="return confirm('Are you sure you want to reset the form?')">
 
+          <fieldset>
+            <legend>Personal Information</legend>
             <label>StudentID:<br>
-              <input type="number" id="sID" name="sID"><br>
+              <input type="number" id="sID" name="sID" required onblur="notify(this)"><br>
               </label>
             
             <label>Full name:<br>
-             <input type="text" id="name" name="name"><br>
+             <input type="text" id="name" name="name" required onblur="notify(this)"><br>
               </label>
 
             <label>Birthday:<br>
-              <input type="date" id="bday" name="bday"><br>
+              <input type="date" id="bday" name="bday" required><br>
              </label>
             
             <label>Email Address:<br>
-              <input type="email" id="email" name="email"><br>
+              <input type="email" id="email" name="email" required onblur="notify(this)"><br>
               </label>
 
+          </fieldset>
+
+          <br>
+          <fieldset>
+            <legend>Additional Information</legend>
             <label>Mobile Phone:<br>
-            <input type="text" id="pnum" name="pnum"><br>
+            <input type="text" id="pnum" name="pnum" required onblur="notify(this)"><br>
             </label>
 
             <label>Grade Level<br>
-            <select id="grade" name="grade">
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
+            <select id="grade" name="grade" required>
+              <option value="gr7">7</option>
+              <option value="gr8">8</option>
+              <option value="gr9">9</option>
+              <option value="gr10">10</option>
+              <option value="gr11">11</option>
+              <option value="gr12">12</option>
             </select>
             </label>
         
             
             <br><label>Residency:<br>
-              <input type="radio" id="residency" name="Intern" value="Intern"/> Intern
-              <input type="radio" id="residency" name="Intern" value="Intern"/> Extern
+              <input type="radio" id="Internkid" name="residency" value="Intern" required/> Intern
+              <input type="radio" id="Externkid" name="residency" value="Extern" /> Extern
             </label>
 
            <br><label>Preferred Organization / Club:<br>
-            <select id="grade" name="grade">
-              <option value="atom">Atom</option>
-              <option value="xyz">XYZ</option>
-              <option value="alianti">Alianti</option>
-              <option value="labuyo">Labuyo</option>
-              <option value="volant">Volant</option>
-              <option value="math">Math Club</option>
+            <select id="club" name="club" required>
+              <option value="atomclub">Atom</option>
+              <option value="xyzclub">XYZ</option>
+              <option value="alianticlub">Alianti</option>
+              <option value="labuyoclub">Labuyo</option>
+              <option value="volantclub">Volant</option>
+              <option value="mathclub">Math Club</option>
             </select>
             </label>
+          
+          </fieldset>
 
             <br> <label>Why do you want to join?:</label>
-            <br> <textarea id="reason" name="reason" rows="4" cols="50"></textarea><br> 
-            <button>Sign Up</button>
+            <br> <textarea id="reason" name="reason" rows="4" cols="50" required onblur="notify(this)"></textarea><br> 
+
+            <br><input type="submit" value="Submit">
+            <input type="reset" value="Reset">
         </form>
     </section>
      
@@ -80,5 +97,17 @@
   <footer>
     <p>Karlo Antonio Delos Reyes 2025</p>
   </footer>
+
+  <script>
+
+    function notify(input) {
+      if (input.value.trim() === "") {
+    input.style.border = "2px solid red";
+  } else {
+    input.style.border = "";
+  }
+}
+      
+  </script>
 </body>
 </html>
