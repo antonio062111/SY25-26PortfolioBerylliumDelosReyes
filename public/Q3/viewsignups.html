@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
   <style>
-   
-
-    </style>
+    .backlink {
+      color: azure;
+    }
+    .backlink:hover {
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
@@ -25,7 +29,7 @@
         <h2>3rd Graded Exercise</h2>
         <label>Select Your Club: </label>
         <select id="selectClub">
-        <option value="all">-- select an option --</option>
+        <option value="all">All Clubs</option>
         <option value="atom">Atom</option>
         <option value="xyz">XYZ</option>
         <option value="alianti">Alianti</option>
@@ -36,6 +40,24 @@
      
 
 <p id="totalCount">Total Signup : 0</p>
+
+<table id="signupTable" border="1" width="100%" cellpadding="5" cellspacing="0"> 
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Full Name</th>
+            <th>Birthday</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Grade Level</th>
+            <th>Club</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
         
     </section>
    </nav>
@@ -43,9 +65,65 @@
     <p>Karlo Antonio Delos Reyes 2026</p>
   </footer>
 
-  <script>
-   
-      
-  </script>
+<script>
+    const selectClub = document.getElementById("selectClub");
+    const results = document.querySelector("#signupTable tbody");
+    const totalCount = document.getElementById("totalCount");
+
+    const clubs = ["atom","xyz","alianti","labuyo","volant","math"];
+
+    // function to get and display signups
+
+    function getSignups() {
+        const categ = selectClub.value;
+        let signupList = [];
+
+    //Combines all keys (clubs) data into one list then sends it for display. Happens when category is all clubs/unsorted.
+        if (categ === "all") {
+            clubs.forEach(key => {
+            let data = JSON.parse(localStorage.getItem(key)) || [];
+            signupList = signupList.concat(data);
+        });
+        } 
+        
+    //Gets the specific key needed then pulls data from local storage then saves the data into signupList for display.
+        else {
+        signupList = JSON.parse(localStorage.getItem(categ)) || [];
+        }
+
+    //clears previous data from the table so that it won't stack up
+        results.innerHTML = "";
+
+    //If there is no signup, the signupList array will have a length of 0. Then it will display that no sign ups were found.
+        if (signupList.length === 0) {
+            results.innerHTML = "<tr><td colspan='8'>No sign-ups found.</td></tr>";
+            totalCount.textContent = "Total Signup : 0";
+        return;
+        }
+    
+    //saves the data into rows and displays them in the table
+        for (let ndx = 0; ndx < signupList.length; ndx++) {
+            let row = "<tr>";
+            row += "<td>" + signupList[ndx].StudentID + "</td>";
+            row += "<td>" + signupList[ndx].FullName + "</td>";
+            row += "<td>" + signupList[ndx].Birthday + "</td>";
+            row += "<td>" + signupList[ndx].Email + "</td>";
+            row += "<td>" + signupList[ndx].MobilePhone + "</td>";
+            row += "<td>" + signupList[ndx].GradeLevel + "</td>";
+            row += "<td>" + signupList[ndx].Club + "</td>";
+            row += "<td>" + signupList[ndx].Reason + "</td>";
+            row += "</tr>";
+            results.innerHTML += row;
+        }
+    //displays the total number of signups found
+        totalCount.textContent = "Total Signup : " + signupList.length;
+    }
+    //initial call to display all signups
+    getSignups();
+
+    //so that whenever we choose a different club to look for, the table will update
+    selectClub.addEventListener("change", getSignups);
+</script>
+
 </body>
 </html>

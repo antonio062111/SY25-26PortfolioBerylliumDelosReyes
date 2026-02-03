@@ -57,12 +57,12 @@
 
             <label>Grade Level<br>
             <select id="grade" name="grade" required>
-              <option value="gr7">7</option>
-              <option value="gr8">8</option>
-              <option value="gr9">9</option>
-              <option value="gr10">10</option>
-              <option value="gr11">11</option>
-              <option value="gr12">12</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
             </select>
             </label>
         
@@ -105,6 +105,7 @@
 document.getElementById("signupForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
+    //ssaves the user inputs into respective variables
       const StudentID = document.getElementById("sID").value;
       const FullName = document.getElementById("name").value;
       const Birthday = document.getElementById("bday").value;
@@ -115,8 +116,13 @@ document.getElementById("signupForm").addEventListener("submit", function(e) {
       const Club = document.getElementById("club").value;
       const Reason = document.getElementById("reason").value;
 
-      let signups = JSON.parse(localStorage.getItem("signups")) || [];
+    //sets the key to be used in storing as the club name
+      let clubKey = Club; 
+    
+    //checks for existing matching keys already saved in local storage. creates an empty array if none found.
+      let clubList = JSON.parse(localStorage.getItem(clubKey)) || [];
 
+    //organanizes the data to be ready for storage
       const newSignup = {
         StudentID,
         FullName,
@@ -128,17 +134,23 @@ document.getElementById("signupForm").addEventListener("submit", function(e) {
         Club,
         Reason
       };
-      signups.push(newSignup);
 
-      localStorage.setItem("signups", JSON.stringify(signups));
+    // adds the new data into our club list then stores it into local storage
+      clubList.push(newSignup);
+      localStorage.setItem(clubKey, JSON.stringify(clubList));
+    
+    //notifies the user that their signup was successful
+      alert("Signup successful!");
     });
 
-      function notify(input) {
-      if (input.value.trim() === "") {
-    input.style.border = "2px solid red";
-  } else {
-    input.style.border = "";
-  }
+    //highlights if the user missed any of the required text inputs
+function notify(input) {
+    if (input.value.trim() === "") {
+      input.style.border = "2px solid red";
+    } 
+    else {
+      input.style.border = "";
+    }
 }
       
   </script>
