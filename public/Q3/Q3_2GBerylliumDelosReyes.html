@@ -24,7 +24,7 @@
     
     <section class="box">
         <h2>2nd and 3rd Graded Exercise</h2>
-        <form id="signupForm" method="post" action="submit"
+        <form id="signupForm" method="post" 
               onsubmit="return confirm('Have you reviewed the form before submitting?')"
               onreset="return confirm('Are you sure you want to reset the form?')">
 
@@ -102,11 +102,38 @@
 
   <script>
 
-    document.getElementById("signupForm").addEventListener("submit", function(e) {
+document.getElementById("signupForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
+      const StudentID = document.getElementById("sID").value;
+      const FullName = document.getElementById("name").value;
+      const Birthday = document.getElementById("bday").value;
+      const Email = document.getElementById("email").value;
+      const MobilePhone = document.getElementById("pnum").value;
+      const GradeLevel = document.getElementById("grade").value;
+      const Residency = document.querySelector('input[name="residency"]:checked').value;
+      const Club = document.getElementById("club").value;
+      const Reason = document.getElementById("reason").value;
 
-    function notify(input) {
+      let signups = JSON.parse(localStorage.getItem("signups")) || [];
+
+      const newSignup = {
+        StudentID,
+        FullName,
+        Birthday,
+        Email,
+        MobilePhone,
+        GradeLevel,
+        Residency,
+        Club,
+        Reason
+      };
+      signups.push(newSignup);
+
+      localStorage.setItem("signups", JSON.stringify(signups));
+    });
+
+      function notify(input) {
       if (input.value.trim() === "") {
     input.style.border = "2px solid red";
   } else {
