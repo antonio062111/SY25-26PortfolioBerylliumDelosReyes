@@ -24,7 +24,7 @@
     
     <section class="box">
         <h2>2nd and 3rd Graded Exercise</h2>
-        <form method="post" action="submit"
+        <form id="signupForm" method="post" action="submit"
               onsubmit="return confirm('Have you reviewed the form before submitting?')"
               onreset="return confirm('Are you sure you want to reset the form?')">
 
@@ -88,7 +88,7 @@
             <br> <label>Why do you want to join?:</label>
             <br> <textarea id="reason" name="reason" rows="4" cols="50" required onblur="notify(this)"></textarea><br> 
 
-            <br><input type="submit" value="Submit">
+            <br><input id="submit" type="submit" value="Submit">
             <input type="reset" value="Reset">
             <button onclick="location.href='viewsignups.html'">View Sign-Ups</button>
         </form>
@@ -101,6 +101,10 @@
   </footer>
 
   <script>
+
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
 
     function notify(input) {
       if (input.value.trim() === "") {
