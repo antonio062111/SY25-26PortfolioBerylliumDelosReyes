@@ -27,9 +27,23 @@ nav a {
     font-weight: bold;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 main {
     padding: 30px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -41,7 +55,7 @@ ul {
     padding: 50px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    width: fit-content;
+    width: 500px;
 }  
 
 section .box{
@@ -50,7 +64,17 @@ section .box{
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     width: fit-content;
-    
+    margin: 0 auto;
+}
+
+section.box{
+    background-color: rgb(255, 255, 255);
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 li a{

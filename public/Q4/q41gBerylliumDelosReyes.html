@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>1st Graded Exercise</title>
+  <meta name="charset" content="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="mainstylesheet.css">
+</head>
+
+<body>
+    <header>
+        <h1>1st Graded Exercise</h1>
+    </header>
+
+    <section class="box">
+        <h2>Add a Movie</h2>
+    
+        <label for="title" style="font-weight: 900;">Title:</label>
+        <input type="text" id="title">
+    
+        <label for="year" style="font-weight: 900;">Year:</label>
+        <input type="number" id="year">
+    
+        <label for="genre" style="font-weight: 900;">Genre:</label>
+        <select id="genre">
+            <option value="Comedy">Comedy</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Drama">Drama</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Sports">Sports</option>
+        </select>
+        
+        <label style="font-weight: 900;">Rating:</label>
+        <div class="stars" id="ratingStars">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+        
+        <button onclick="addMovie()">Add Movie</button>
+        
+        <h2>Movie List</h2>
+        <ul id="movieList">
+        
+
+        </ul>
+    </section>
+  
+  <script>
+    function displayMovies() {
+      const movieList = JSON.parse(localStorage.getItem("movies")) || [];
+      const movieListElement = document.getElementById("movieList");
+      movieListElement.innerHTML = "";
+      
+      movieList.forEach(movie => {
+        let stars = "";
+        for (let i = 0; i < movie.rating; i++) {
+          stars += '<span style="color: gold;">★</span>';
+        }
+        
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `${movie.title} (${movie.year}) - ${movie.genre}, Rating: ${stars}`;
+        movieListElement.appendChild(listItem);
+      });
+    }
+    function addMovie() {
+    //ssaves the user inputs into respective variables
+      const title = document.getElementById("title").value;
+      const year = document.getElementById("year").value;
+      const genre = document.getElementById("genre").value;
+      const rating = selectedRating;
+
+    //sets the key to be used in storing as the movie name
+      let movieKey = title; 
+    
+     //checks for existing matching keys already saved in local storage. creates an empty array if none found.
+      let movieList = JSON.parse(localStorage.getItem("movies")) || [];
+
+    //organanizes the data to be ready for storage
+      const newMovie = {
+        title,
+        year,
+        genre,
+        rating
+      };
+       
+
+    // adds the new data into our movie list then stores it into local storage
+      movieList.push(newMovie);
+      localStorage.setItem("movies", JSON.stringify(movieList));
+    
+    // Refresh the list on the page
+      displayMovies();
+    
+    // Clear form
+      document.getElementById("title").value = "";
+      document.getElementById("year").value = "";
+      document.getElementById("genre").value = "Comedy";
+      selectedRating = 0;
+      updateStars(0);
+    
+    //notifies the user that their signup was successful
+      alert("Signup successful!");
+    }
+
+    let selectedRating = 0;
+
+    // Handle star clicks
+    document.querySelectorAll(".star").forEach(star => {
+      star.addEventListener("click", function() {
+        selectedRating = this.getAttribute("data-value");
+        updateStars(selectedRating);
+      });
+    });
+
+    function updateStars(rating) {
+      document.querySelectorAll(".star").forEach(star => {
+        star.classList.remove("selected");
+        if (star.getAttribute("data-value") <= rating) {
+          star.classList.add("selected");
+        }
+      });
+    }
+
+    window.onload = displayMovies();
+  </script>
+</body>
+</html>
