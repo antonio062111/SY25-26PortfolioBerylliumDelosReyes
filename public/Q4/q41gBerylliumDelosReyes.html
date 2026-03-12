@@ -92,8 +92,6 @@
     if (movieObj[movieKey]) {
       let aveRating = (parseInt(movieObj[movieKey].rating) + parseInt(rating)) / 2;
       aveRating = Math.round(aveRating);
-      movieObj[movieKey].year = year;
-      movieObj[movieKey].genre = genre;
       movieObj[movieKey].rating = aveRating;
     }
     
