@@ -13,7 +13,7 @@
     </header>
 
     <section class="box">
-        <h2>Add a Movie</h2>
+        <h2>Add/Update a Movie Rating</h2>
     
         <label for="title" style="font-weight: 900;">Title:</label>
         <input type="text" id="title">
@@ -49,25 +49,35 @@
     </section>
   
   <script>
+    function deleteMovie(movieKey){
+      if (confirm('Are you sure you want to delete this movie?')) {
+        let movieObj = JSON.parse(localStorage.getItem("movies"));
+        delete movieObj[movieKey];  
+        localStorage.setItem("movies", JSON.stringify(movieObj));
+        displayMovies();
+      }
+    }
+
     function displayMovies() {
-      const movieList = JSON.parse(localStorage.getItem("movies")) || [];
+      const movieObj = JSON.parse(localStorage.getItem("movies")) || {};
       const movieListElement = document.getElementById("movieList");
       movieListElement.innerHTML = "";
       
-      movieList.forEach(movie => {
+      Object.values(movieObj).forEach(movie => {
         let stars = "";
         for (let i = 0; i < movie.rating; i++) {
           stars += '<span style="color: gold;">★</span>';
         }
         
         const listItem = document.createElement("li");
-        listItem.innerHTML = `${movie.title} (${movie.year}) - ${movie.genre}, Rating: ${stars}`;
+        listItem.innerHTML = `${movie.title} (${movie.year}) - ${movie.genre}, Rating: ${stars}` + `<button onclick="deleteMovie('${movie.title}')">Delete</button>`;
         movieListElement.appendChild(listItem);
       });
     }
+
     function addMovie() {
     //ssaves the user inputs into respective variables
-      const title = document.getElementById("title").value;
+      const title = document.getElementById("title").value.trim();
       const year = document.getElementById("year").value;
       const genre = document.getElementById("genre").value;
       const rating = selectedRating;
@@ -75,9 +85,19 @@
     //sets the key to be used in storing as the movie name
       let movieKey = title; 
     
-     //checks for existing matching keys already saved in local storage. creates an empty array if none found.
-      let movieList = JSON.parse(localStorage.getItem("movies")) || [];
+    //checks for existing movies already saved in local storage. creates an object if none found.
+      let movieObj = JSON.parse(localStorage.getItem("movies")) || {};
 
+    //checks if the movie already exists in the object. if it does, it updates the average rating of the movie along with other details.
+    if (movieObj[movieKey]) {
+      let aveRating = (parseInt(movieObj[movieKey].rating) + parseInt(rating)) / 2;
+      aveRating = Math.round(aveRating);
+      movieObj[movieKey].year = year;
+      movieObj[movieKey].genre = genre;
+      movieObj[movieKey].rating = aveRating;
+    }
+    
+    else{
     //organanizes the data to be ready for storage
       const newMovie = {
         title,
@@ -85,15 +105,18 @@
         genre,
         rating
       };
-       
 
-    // adds the new data into our movie list then stores it into local storage
-      movieList.push(newMovie);
-      localStorage.setItem("movies", JSON.stringify(movieList));
+    // adds the new data into our movie object then stores it into local storage
+      movieObj[movieKey] = newMovie;
+    }
+      
+    localStorage.setItem("movies", JSON.stringify(movieObj));
     
     // Refresh the list on the page
       displayMovies();
     
+
+
     // Clear form
       document.getElementById("title").value = "";
       document.getElementById("year").value = "";
@@ -109,6 +132,7 @@
 
     // Handle star clicks
     document.querySelectorAll(".star").forEach(star => {
+
       star.addEventListener("click", function() {
         selectedRating = this.getAttribute("data-value");
         updateStars(selectedRating);
