@@ -97,16 +97,16 @@
 - The notice appears on top of the content because it has a higher z-index. The z-index controls the stacking of elements and which has higher priority on being at the top of the pile of elements. When I swap the z-index values, it makes notice go to the bottom of our "element stack" (I just wanna call it this po) while content goes on top. 
 
 - Challenge: 
-    * What changes that you have to do on the code that will position .notice box on the top right corner of the .content box? Please write the code on paper as well (both html and css on the part of .notice and .content).
-    * Try to change the position of .content to relative then to fixed. What do you observed each time?
-    * What do you observe on about the effect of z-index on .notice and .content boxes?
+    * What changes that you have to do on the code that will position .notice box on the top right corner of the .content box? Please write the code on paper as well (both html and css on the part of .notice and .content). To accomplish this, we have to make notice a child of content, then in CSS set right and top to 0.
+    * Try to change the position of .content to relative then to fixed. What do you observed each time? When the position of content is relative, it moved to 66px from the top and 200px from the left from where it originally was. When we set it to fixed, it stays locked 66px from the top and 200px from the left of the entire webpage. The notice element moves with the content
+    * What do you observe on about the effect of z-index on .notice and .content boxes? It changes which goes on the top and bottom.
 
 3. Please answer the following reflection questions (15 minutes)
 
-    a. Could you summarize the differences between the CSS position values (static, relative, absolute, fixed)? 
+    a. Could you summarize the differences between the CSS position values (static, relative, absolute, fixed)? Static is the default position, elements with this position will not be affected by offset properties and the z index. Relative positioned elements will be affected by offset properties and the z index relative to their original position. Elements with absolute position will be placed relative to their nearest ancestor. Fixed position elements will be placed based off the entire webpage and will not scroll.
 
-    b. How does absolute positioning depend on its parent element?
+    b. How does absolute positioning depend on its parent element? It depends on its parent element by basing off the adjustments off the dimensions of its parent element.
 
-    c. How do you differentiate sticky from fixed (you can research on sticky)?
+    c. How do you differentiate sticky from fixed (you can research on sticky)? Sticky will be fixed until the scroll reaches a certain point then it will follow the scroll.
 
-    d. If you were designing a webpage for a school event, how might you use positioning to highlight important information? Please give concrete examples.
+    d. If you were designing a webpage for a school event, how might you use positioning to highlight important information? Please give concrete examples. I might be able to use fixed position to place an announcement in the center of the screen blocking the center of the screen and it will only go away or minimize once the user acknowledges that they have seen the announcement.
